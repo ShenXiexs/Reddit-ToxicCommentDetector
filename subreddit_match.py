@@ -2,9 +2,9 @@ import os
 import pandas as pd
 from tqdm import tqdm  
 
-authors_1_path = r"/Users/samxie/Research/HEC/Reddit Match 0404/Data/Authors_1"
-authors_2_path = r"/Users/samxie/Research/HEC/Reddit Match 0404/Data/Authors_2"
-brands_path = r"/Users/samxie/Research/HEC/Reddit Match 0404/Data/brands.csv"
+authors_1_path = r""
+authors_2_path = r""
+brands_path = r""
 
 # subreddit value
 brands_df = pd.read_csv(brands_path)
@@ -36,7 +36,7 @@ for subreddit, data_list in subreddit_data.items():
     
     # save subreddit csv
     output_filename = f"{subreddit}_combined.csv"
-    output_path = os.path.join(r"/Users/samxie/Research/HEC/Reddit Match 0404/Data/subreddit", output_filename)
+    output_path = os.path.join(r"", output_filename)
     combined_data.to_csv(output_path, index=False)
 
 print("处理完毕，所有匹配的文件已生成。")

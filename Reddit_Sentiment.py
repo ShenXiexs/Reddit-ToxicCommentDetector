@@ -5,8 +5,8 @@ import pandas as pd
 import os
 from tqdm import tqdm
 
-input_folder = '/Users/samxie/Research/HEC/Reddit Sentiment 0417/Data_Before'
-output_folder = '/Users/samxie/Research/HEC/Reddit Sentiment 0417/Data_After'
+input_folder = ''
+output_folder = ''
 
 
 MAX_SEQ_LEN = 512

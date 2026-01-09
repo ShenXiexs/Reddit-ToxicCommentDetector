@@ -7,9 +7,9 @@ from tqdm import tqdm
 import numpy as np
 
 # Paths
-model_path = '/Users/samxie/Research/HEC/Reddit Toxic 0412/best_model_state.bin'
-input_dir = '/Users/samxie/Research/HEC/Reddit Toxic 0412/Data_for_Predict2'
-output_dir = '/Users/samxie/Research/HEC/Reddit Toxic 0412/Data_After_Predict'
+model_path = ''
+input_dir = ''
+output_dir = ''
 
 # Load the trained model and tokenizer
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

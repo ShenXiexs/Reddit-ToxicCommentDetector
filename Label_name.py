@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Paths
-output_dir = '/Users/samxie/Research/HEC/Reddit Toxic 0412/Data_After_Predict'
+output_dir = ''
 
 # New label columns
 label_cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
