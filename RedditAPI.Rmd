@@ -1,0 +1,132 @@
+---
+title: "RedditAPI"
+author: "Samxie"
+date: "2025-05-02"
+output: html_document
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+```
+
+```{r}
+input_folder <- "/Users/samxie/Research/HEC/Reddit Sentiment 0502/DataAfter"
+
+# Get the list of all CSV files in the directory
+csv_files <- list.files(input_folder, pattern = "apple_comments_redditapi_.*_done.csv", full.names = TRUE)
+
+# Read and combine all CSV files using lapply and do.call
+combined_data <- do.call(rbind, lapply(csv_files, read_csv))
+```
+
+```{r}
+write_csv(combined_data, "/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/apple_comments_redditapi_done.csv")
+```
+
+
+## split and run
+```{r}
+full_sample <- read_csv("/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/teslamotors_comments_redditapi.csv")
+```
+
+```{r}
+# Get the number of rows and calculate the size of each split
+total_rows <- nrow(full_sample)
+rows_per_split <- ceiling(total_rows / 5)
+
+# Split the data into 5 parts
+for (i in 1:5) {
+  # Calculate the row range for each split
+  start_row <- (i - 1) * rows_per_split + 1
+  end_row <- min(i * rows_per_split, total_rows)
+  
+  # Extract the subset of rows
+  split_data <- full_sample[start_row:end_row, ]
+  
+  # Define the output file name
+  output_file <- paste0("/Users/samxie/Research/HEC/Reddit Sentiment 0502/DataBefore/teslamotors_comments_redditapi_", i, ".csv")
+  
+  # Write the subset to a new CSV file
+  write_csv(split_data, output_file)
+  
+  print(paste("File saved:", output_file))
+}
+```
+
+```{r}
+teslamotor_5 <- read_csv("/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/teslamotors_comments_redditapi_5.csv")
+```
+
+```{r}
+teslamotor_5_1 <- teslamotor_5 |>
+  slice(1:480000)
+teslamotor_5_2 <- teslamotor_5 |>
+  slice(480001:968866)
+```
+
+```{r}
+write_csv(teslamotor_5_1, "/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/teslamotors_comments_redditapi_5_1.csv")
+write_csv(teslamotor_5_2, "/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/teslamotors_comments_redditapi_5_2.csv")
+```
+
+```{r}
+input_folder <- "/Users/samxie/Research/HEC/Reddit Sentiment 0502/DataAfter"
+
+# Get the list of all CSV files in the directory
+csv_files <- list.files(input_folder, full.names = TRUE)
+
+# Read and combine all CSV files using lapply and do.call
+combined_data <- do.call(rbind, lapply(csv_files, read_csv))
+```
+
+
+```{r}
+write_csv(combined_data, "teslamotors_comments_redditapi_done.csv")
+```
+
+
+## split and run
+```{r}
+full_sample <- read_csv("/Users/samxie/Research/HEC/Reddit\ Sentiment\ 0502/DataBefore/BMW_comments_redditapi.csv")
+```
+
+```{r}
+# Get the number of rows and calculate the size of each split
+total_rows <- nrow(full_sample)
+rows_per_split <- ceiling(total_rows / 5)
+
+# Split the data into 5 parts
+for (i in 1:5) {
+  # Calculate the row range for each split
+  start_row <- (i - 1) * rows_per_split + 1
+  end_row <- min(i * rows_per_split, total_rows)
+  
+  # Extract the subset of rows
+  split_data <- full_sample[start_row:end_row, ]
+  
+  # Define the output file name
+  output_file <- paste0("/Users/samxie/Research/HEC/Reddit Sentiment 0502/DataBefore/BMW_comments_redditapi_", i, ".csv")
+  
+  # Write the subset to a new CSV file
+  write_csv(split_data, output_file)
+  
+  print(paste("File saved:", output_file))
+}
+```
+
+```{r}
+input_folder <- "/Users/samxie/Research/HEC/Reddit Sentiment 0502/DataAfter"
+
+# Get the list of all CSV files in the directory
+csv_files <- list.files(input_folder, full.names = TRUE)
+
+# Read and combine all CSV files using lapply and do.call
+combined_data <- do.call(rbind, lapply(csv_files, read_csv))
+```
+
+
+```{r}
+write_csv(combined_data, "BMW_comments_redditapi_done.csv")
+```
+

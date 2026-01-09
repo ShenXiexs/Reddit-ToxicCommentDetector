@@ -1,0 +1,1129 @@
+---
+title: "Merged_Data"
+author: "Samxie"
+date: "2025-05-09"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(readr)
+library(stringr)
+```
+
+## Merged one by one
+
+***1 AirBnB***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/AirBnB_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/AirBnB_comments_redditapi.csv")
+```
+toxic is itself-merged.
+```{r}
+# toxic_sentiment <- left_join(toxic, sentiment)
+```
+**brand_found**
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/AirBnB_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("AirBnB", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/AirBnB_comments_redditapi_merged.csv")
+```
+
+***2 amazon***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/amazon_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/amazon_comments_redditapi.csv")
+```
+toxic is itself-merged.
+```{r}
+# toxic_sentiment <- left_join(toxic, sentiment)
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/amazon_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("amazon", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[1]]
+```
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/amazon_comments_redditapi_merged.csv")
+```
+
+***3 Apple***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/apple_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/apple_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/apple_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/apple_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("Apple", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[5]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/apple_comments_redditapi_merged.csv")
+```
+
+***4 Blizzard***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/Blizzard_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/Blizzard_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Blizzard_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Blizzard_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("Blizzard", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[1]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Blizzard_comments_redditapi_merged.csv")
+```
+
+
+***5 BMW - DataIssue 错行***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/BMW_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/BMW_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/BMW_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/BMW_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("BMW", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[8]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/BMW_comments_redditapi_merged.csv")
+```
+
+***6 Dominos ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/Dominos_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/Dominos_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Dominos_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Dominos_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(str_detect(comment_body, regex("Dominos", ignore_case = TRUE)), 1, 0)
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[27]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Dominos_comments_redditapi_merged.csv")
+```
+
+***7 EASportsUFC ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/EASportsUFC_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/EASportsUFC_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/EASportsUFC_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/EASportsUFC_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("EASportsUFC|EASports|UFC|EA", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/EASportsUFC_comments_redditapi_merged.csv")
+```
+
+***8 Ebay ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/Ebay_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/Ebay_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Ebay_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Ebay_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("Ebay", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Ebay_comments_redditapi_merged.csv")
+```
+
+***9 glossier ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/glossier_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/glossier_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/glossier_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/glossier_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("glossier", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[7]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/glossier_comments_redditapi_merged.csv")
+```
+
+***10 intel ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/intel_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/intel_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/intel_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/intel_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("intel", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[2]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/intel_comments_redditapi_merged.csv")
+```
+
+***11 McDonalds ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/McDonalds_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/McDonalds_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/McDonalds_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/McDonalds_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("McDonalds", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[1]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/McDonalds_comments_redditapi_merged.csv")
+```
+
+***12 microsoft ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/microsoft_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/microsoft_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) 
+# |>  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/microsoft_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/microsoft_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("microsoft|ms", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[2]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/microsoft_comments_redditapi_merged.csv")
+```
+
+***13 mintmobile ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/mintmobile_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/mintmobile_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) 
+# |>  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/mintmobile_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/mintmobile_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("mintmobile", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/mintmobile_comments_redditapi_merged.csv")
+```
+
+***14 netflix ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/netflix_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/netflix_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) 
+# |>  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/netflix_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/netflix_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("netflix", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[5]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/netflix_comments_redditapi_merged.csv")
+```
+
+***15 NintendoSwitch ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/NintendoSwitch_commets_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/NintendoSwitch_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) 
+# |>  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/NintendoSwitch_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/NintendoSwitch_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("NintendoSwitch|Nintendo|Switch", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[15]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/NintendoSwitch_comments_redditapi_merged.csv")
+```
+
+***16 nvidia ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/nvidia_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/nvidia_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>  
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/nvidia_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/nvidia_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("nvidia", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/nvidia_comments_redditapi_merged.csv")
+```
+
+***17 paypal ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/paypal_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/paypal_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>  
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/paypal_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/paypal_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("paypal", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[7]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/paypal_comments_redditapi_merged.csv")
+```
+
+***18 peloton ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/peloton_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/peloton_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>  
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/peloton_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/peloton_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("peloton", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[18]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/peloton_comments_redditapi_merged.csv")
+```
+
+***19 playstation ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/playstation_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/playstation_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>  
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/playstation_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/playstation_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("playstation|ps4|ps5", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[10]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/playstation_comments_redditapi_merged.csv")
+```
+
+
+***20 QuickBooks ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/QuickBooks_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/QuickBooks_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>  
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/QuickBooks_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/QuickBooks_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("QuickBooks", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[2]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/QuickBooks_comments_redditapi_merged.csv")
+```
+
+***21 razer ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/razer_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/razer_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/razer_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/razer_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("razer", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[8]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/razer_comments_redditapi_merged.csv")
+```
+
+
+***22 RobinHood ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/RobinHood_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/RobinHood_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/RobinHood_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/RobinHood_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("RobinHood", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[25]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/RobinHood_comments_redditapi_merged.csv")
+```
+
+
+***23 spotify ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/spotify_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/spotify_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/spotify_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/spotify_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("spotify", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[12]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/spotify_comments_redditapi_merged.csv")
+```
+
+***24 starbucks ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/starbucks_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/starbucks_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/starbucks_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/starbucks_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("starbucks|starbuck", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[2]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/starbucks_comments_redditapi_merged.csv")
+```
+
+***25 Steam ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/Steam_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/Steam_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic, by=c("comment_id"))
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(-post_id.y, -author.y, -created_utc.y, -comment_body.y, -score.y)
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  rename_with(~ sub("\\.x$", "", .), ends_with(".x"))
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Steam_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Steam_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("Steam", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[2]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Steam_comments_redditapi_merged.csv")
+```
+
+***26 supremeclothing ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/supremeclothing_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/supremeclothing_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/supremeclothing_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/supremeclothing_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("supremeclothing|supreme", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[5]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/supremeclothing_comments_redditapi_merged.csv")
+```
+
+***27 tacobell ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/tacobell_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/tacobell_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/tacobell_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/tacobell_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("tacobell", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/tacobell_comments_redditapi_merged.csv")
+```
+
+***28 teslamotors ***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/teslamotors_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/teslamotors_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/teslamotors_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/teslamotors_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("teslamotors|tesla", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[10]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/teslamotors_comments_redditapi_merged.csv")
+```
+
+***29 Toyota***
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/Toyota_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/Toyota_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Toyota_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Toyota_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("Toyota", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[1]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/Toyota_comments_redditapi_merged.csv")
+```
+
+***30 xbox***
+
+```{r include=FALSE}
+toxic <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/Toxic_api/xbox_comments_redditapi.csv")
+sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/sentiment_api/xbox_comments_redditapi.csv")
+```
+
+```{r}
+toxic_sentiment <- left_join(sentiment, toxic) |>
+  select(-1)
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/xbox_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- read_csv("/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/xbox_comments_redditapi_merged.csv")
+```
+
+```{r}
+toxic_sentiment <- toxic_sentiment |>
+  select(1:15) |>
+  mutate(
+    brand_found = ifelse(
+      str_detect(comment_body, regex("xbox", ignore_case = TRUE)),
+      1, 0
+    )
+  )
+```
+
+```{r}
+toxic_sentiment$comment_body[[3]]
+```
+
+```{r}
+write_csv(toxic_sentiment, "/Users/samxie/Research/HEC/Reddit\ Merge\ 0509/merged_sentiment_toxic/xbox_comments_redditapi_merged.csv")
+```
