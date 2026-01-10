@@ -1,29 +1,42 @@
 # Reddit Toxic Pipeline
 
-Single-entry CLI to gather subreddit comments, restore removed/deleted items, run toxicity scoring, rename labels, and perform sentiment analysis.
+Toolkit for collecting Reddit brand data, restoring removed/deleted comments, training a toxicity classifier, and running inference/sentiment analysis through a single CLI.
 
-## Quick Start
-```bash
-pip install -r requirements.txt
-# First model download requires internet access (Hugging Face).
-```
+## Setup
+- Python 3.9+ recommended.
+- Install dependencies: `pip install -r requirements.txt`.
+- First run will download Hugging Face models (requires internet once).
+- For data collection with the Reddit API, add your own `client_id`, `client_secret`, and `user_agent` in `Reddit Pushshift.py`.
 
-## Commands
-- `match`: merge rows per subreddit from author CSV folders.
+## Workflow Overview
+### 1) Collect submissions/comments
+- Export submission IDs from Pushshift into `<brand>_submissions_pushshift.csv` files under `input_dir`.
+- Fill `client_id/client_secret/user_agent` plus `input_dir` in `Reddit Pushshift.py`, then run it to fetch metadata via PRAW and save `<brand>_submissions_redditapi1.csv`.
+
+### 2) Tag and clean datasets
+- `RedditProcess0612.py` step 1 (set `root_path`): for each brand folder, reads `<brand>_all_deleted.csv`, `<brand>_all_removed.csv`, and `<brand>_submissions_redditapi.csv`, then writes `_parent.csv` files with `parent_deleted/parent_removed` flags.
+- `RedditProcess0612.py` step 2 (set `base_dir`): adds `brand_relevant` flag to `<brand>_comments_pushshift_parent.csv` using brand-specific regex rules.
+
+### 3) Train toxicity classifier (optional if you have a model already)
+- `Reddit_Toxic.py` fine-tunes `bert-base-uncased` on the Kaggle toxic comments dataset; adjust dataset paths near the top.
+- The best checkpoint is saved to `best_model_state.bin` and can be used by the CLI `predict` command.
+
+### 4) Production CLI (pipeline.py)
+- `match`: merge rows per subreddit across author CSV folders.
   ```bash
   python pipeline.py match \
     --input-dirs data/authors_part1 data/authors_part2 \
     --brands-csv data/brands.csv \
     --output-dir Dataset_Add/raw_combined
   ```
-- `restore`: add removed/deleted comments back and export `*_after.csv`.
+- `restore`: reattach removed/deleted comments and export `*_after.csv`.
   ```bash
   python pipeline.py restore \
     --dataset-dir Dataset_Add/raw_combined \
     --output-dir Dataset_Add \
-    --skip-copy   # optional: skip copying originals into output
+    --skip-copy   # optional: avoid copying originals into output
   ```
-- `predict`: run multi-label toxicity inference (requires fine-tuned BERT state dict).
+- `predict`: run multi-label toxicity inference (needs fine-tuned BERT state dict).
   ```bash
   python pipeline.py predict \
     --model-path models/toxic_model.bin \
@@ -39,7 +52,7 @@ pip install -r requirements.txt
     --input-dir predictions \
     --output-dir predictions
   ```
-- `sentiment`: sentiment analysis with DistilBERT SST-2.
+- `sentiment`: run SST-2 sentiment scoring.
   ```bash
   python pipeline.py sentiment \
     --input-dir predictions \
@@ -48,6 +61,12 @@ pip install -r requirements.txt
     --strip-suffix _after_toxic \
     --output-suffix _done
   ```
+
+### 5) Legacy notebook scripts (converted to .py)
+- `Reddit_Sentiment.py`: standalone sentiment pipeline similar to the CLI command.
+- `Reddit Pushshift.py`: PRAW-based submission metadata fetcher for Pushshift exports.
+- `RedditProcess0612.py`: deletion/brand relevance tagging utilities.
+- `Reddit_Toxic.py`: full training loop and inference export for the toxicity model.
 
 ## Expected Layout (example)
 ```
@@ -67,6 +86,6 @@ Reddit-Toxic-Code/
 ```
 
 ## Notes
-- GPU speeds up prediction and sentiment; CUDA is auto-detected.
+- GPU will speed up `predict` and `sentiment`; CUDA is auto-detected.
 - Ensure the text column name matches your data (default `body`); override with CLI flags.
-- The original notebooks (`*.ipynb`) remain for reference/training; pipeline covers the production flow. If you want a slimmer repo, you can remove unused notebooks after archiving them elsewhere.
+- Converted `.py` files mirror the original notebooks for transparency and offline editing.
